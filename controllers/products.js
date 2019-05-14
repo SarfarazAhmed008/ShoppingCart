@@ -26,16 +26,19 @@ exports.postAddProduct = (req, res, next) => {
 
 exports.getAllProducts = (req, res, next) => {
     console.log('Middleware express');
-    const products = Product.fetchAll();
+    //const products = Product.fetchAll();
     
-    res.render('shop', {
-        prods : products, 
-        pageTitle : 'Shop Cart', 
-        path : '/', 
-        hasProduct : products.length > 0,
-        hasProdCSS : true,
-        shopActive : true
+    Product.fetchAll(products => {
+        res.render('shop', {
+            prods : products, 
+            pageTitle : 'Shop Cart', 
+            path : '/', 
+            hasProduct : products.length > 0,
+            hasProdCSS : true,
+            shopActive : true
+        });
     });
+    
     //before adding controller codes (below)...
     //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     //res.send('<p>hello from express</p>');
