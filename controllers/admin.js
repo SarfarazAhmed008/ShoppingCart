@@ -2,7 +2,7 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     console.log('Middleware product');
-    res.render('add-product', {
+    res.render('admin/add-product', {
         pageTitle : 'Add Product', 
         path : '/admin/add-product',
         hasFormCSS : true,
@@ -24,22 +24,12 @@ exports.postAddProduct = (req, res, next) => {
     res.redirect('/');
 };
 
-exports.getAllProducts = (req, res, next) => {
-    console.log('Middleware express');
-    //const products = Product.fetchAll();
-    
+exports.getProducts = (req, res, next) => {
     Product.fetchAll(products => {
-        res.render('shop', {
+        res.render('admin/products', {
             prods : products, 
-            pageTitle : 'Shop Cart', 
-            path : '/', 
-            hasProduct : products.length > 0,
-            hasProdCSS : true,
-            shopActive : true
+            pageTitle : 'Admin Products', 
+            path : '/admin/products', 
         });
     });
-    
-    //before adding controller codes (below)...
-    //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    //res.send('<p>hello from express</p>');
 };

@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 
-//const products = [];
 const p = path.join(path.dirname(process.mainModule.filename), 'data', 'data-file.json');
 
 const getProductsFromFile = callback => {
@@ -28,7 +27,11 @@ module.exports = class Product {
         //save data into the file as json format
         // let products = [];
         //const p = path.join(path.dirname(process.mainModule.filename), 'data', 'data-file.json');
-        //fs.readFile(p, (err, fileContent) => {});
+        // fs.readFile(p, (err, fileContent) => {
+        //     if(!err){
+        //         products = JSON.parse(fileContent);
+        //     }
+        // });
 
         getProductsFromFile(products => {
             products.push(this);
@@ -36,8 +39,6 @@ module.exports = class Product {
                 console.log('error is', err);
             });
         });
-        
-  
     }
 
     static fetchAll(callback){
@@ -45,6 +46,5 @@ module.exports = class Product {
         // const p = path.join(path.dirname(process.mainModule.filename), 'data', 'data-file.json');
 
         getProductsFromFile(callback);
-   
     }
 };
