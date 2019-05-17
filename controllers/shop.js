@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 exports.getAllProducts = (req, res, next) => {
     console.log('Middleware express');
@@ -65,8 +66,10 @@ exports.getShopCart = (req, res, next) => {
 
 exports.postShopCart = (req, res, next) => {
     const prodId = req.body.productId;
-    console.log(prodId);
-    res.redirect('/cart');
+    Product.findById(prodId, product => {
+        Cart.addProduct(prodId, product.price);
+        res.redirect('/cart');
+    });  
 };
 
 exports.getCheckout = (req, res, next) => {
