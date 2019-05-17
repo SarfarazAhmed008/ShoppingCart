@@ -6,24 +6,28 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
     <main>
-        <form class="product-form" action="/admin/add-product" method="POST">
+        <form class="product-form" action="/admin/<% if (editable){ %>edit-product<% } else { %>add-product<% } %>" method="POST">
             <div class="form-control">
                 <label for="title">Title</label>
-                <input type="text" name="title" id="title">
+                <input type="text" name="title" id="title" value="<% if(editable) { %><%= product.title %><% } %>">
             </div>
             <div class="form-control">
                 <label for="imageUrl">Image URL</label>
-                <input type="text" name="imageUrl" id="imageUrl">
+                <input type="text" name="imageUrl" id="imageUrl" value="<% if(editable) { %><%= product.imageUrl %><% } %>">
             </div>
             <div class="form-control">
                 <label for="price">Price</label>
-                <input type="number" name="price" id="price" step="0.01">
-            </div>
+                <input type="number" name="price" id="price" step="0.01" value="<% if(editable) { %><%= product.price %><% } %>">
             <div class="form-control">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5"></textarea>
+                <textarea name="description" id="description" rows="5"><% if(editable) { %><%= product.description %><% } %></textarea>
             </div>
-            <button class="btn" type="submit">Add Product</button>
+
+            <% if(editable) { %>
+                <input type="hidden" name="productId" value="<%= product.id %>">
+            <% } %>
+            
+            <button class="btn" type="submit"><% if(editable){ %> Update Product <% } else { %> Add Product <% } %></button>
         </form>
     </main>
     
