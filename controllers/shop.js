@@ -15,7 +15,6 @@ exports.getAllProducts = (req, res, next) => {
             // shopActive : true
         });
     });
-    
     //before adding controller codes (below)...
     //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     //res.send('<p>hello from express</p>');
