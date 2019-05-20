@@ -32,7 +32,6 @@ exports.getProduct = (req, res, next) => {
 
 };
 
-
 exports.getIndex = (req, res, next) => {
     console.log('Middleware express');
     //const products = Product.fetchAll();
@@ -57,10 +56,24 @@ exports.getOrders = (req, res, next) => {
 };
 
 exports.getShopCart = (req, res, next) => {
-    res.render('shop/cart', {
-        pageTitle : 'Your Cart',
-        path: '/cart'
+    Cart.getCart(cart => {
+        Product.fetchAll(products => {
+            const cartProducts = [];
+            for (let product of products){
+                const cartProduct = cart.products.find(prod => prod.id === product.id)
+                if(cartProduct){
+                    cartProducts.push({productData : product, qty : cartProduct.qty});
+                }
+            }
+            
+            res.render('shop/cart', {
+                products : cartProducts,
+                pageTitle : 'Your Cart',
+                path: '/cart',
+            });
+        });
     });
+ 
 };
 
 exports.postShopCart = (req, res, next) => {
@@ -69,6 +82,14 @@ exports.postShopCart = (req, res, next) => {
         Cart.addProduct(prodId, product.price);
         res.redirect('/cart');
     });  
+};
+
+exports.cartDeleteProduct = (req, res, next) => {
+    const prodId = req.body.productId;
+    Product.findById(prodId, product => {
+        Cart.deleteProduct(prodId, product.price);
+        res.redirect('/cart');
+    });
 };
 
 exports.getCheckout = (req, res, next) => {

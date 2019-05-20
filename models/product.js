@@ -41,6 +41,7 @@ module.exports = class Product {
     
         getProductsFromFile(products => {
             if(this.id){
+                //update
                 const existingProductIndex = products.findIndex(product => product.id === this.id);
                 const updatedProducts = [...products];
                 updatedProducts[existingProductIndex] = this;
@@ -49,6 +50,7 @@ module.exports = class Product {
                 });
             } 
             else {
+                //new product
                 this.id = Math.random().toString();
                 getProductsFromFile(products => {
                     products.push(this);
