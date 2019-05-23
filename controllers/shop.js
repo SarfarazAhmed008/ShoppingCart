@@ -3,49 +3,46 @@ const Cart = require('../models/cart');
 
 exports.getAllProducts = (req, res, next) => {
     console.log('Middleware express');
-    //const products = Product.fetchAll();
     
-    Product.fetchAll(products => {
+    Product.fetchAll()
+    .then(([rows, fieldData]) => {
         res.render('shop/product-list', {
-            prods : products, 
+            prods : rows, 
             pageTitle : 'All Products', 
             path : '/products', 
-            // hasProduct : products.length > 0,
-            // hasProdCSS : true,
-            // shopActive : true
         });
-    });
-    //before adding controller codes (below)...
-    //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    //res.send('<p>hello from express</p>');
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findById(prodId, product => {
+    Product.findById(prodId)
+    .then(([product]) => {
+        console.log(product);
         res.render('shop/product-detail', {
-            prod : product,
-            pageTitle : product.title,
+            prod : product[0],
+            pageTitle : product[0].title,
             path : '/products'
         });
-    });
-
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getIndex = (req, res, next) => {
     console.log('Middleware express');
-    //const products = Product.fetchAll();
     
-    Product.fetchAll(products => {
+    Product.fetchAll()
+    .then(([rows, fieldData]) => {
+        console.log(rows);
         res.render('shop/index', {
-            prods : products, 
+            prods : rows, 
             pageTitle : 'Online Shop', 
             path : '/', 
-            // hasProduct : products.length > 0,
-            // hasProdCSS : true,
-            // shopActive : true
         });
-    });
+    })
+    .catch(err => console.log(err));
+   
 };
 
 exports.getOrders = (req, res, next) => {
