@@ -61,6 +61,7 @@ exports.getShopCart = (req, res, next) => {
             const cartProducts = [];
             for (let product of products){
                 const cartProduct = cart.products.find(prod => prod.id === product.id)
+                //console.log(cartProduct);
                 if(cartProduct){
                     cartProducts.push({productData : product, qty : cartProduct.qty});
                 }
