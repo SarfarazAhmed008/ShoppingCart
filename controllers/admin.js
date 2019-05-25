@@ -65,16 +65,32 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    Product.deleteById(prodId);
-    res.redirect('/admin/products');
+    Product.deleteById(prodId)
+    .then(() => {
+        res.redirect('/admin/products');
+    })
+    .catch(err => console.log(err))
+    // const prodId = req.body.productId;
+    // Product.deleteById(prodId);
+    // res.redirect('/admin/products');
 };
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll(products => {
+    Product.fetchAll()
+    .then(([rows, fieldData]) => {
         res.render('admin/products', {
-            prods : products, 
-            pageTitle : 'Admin Products', 
-            path : '/admin/products', 
+            prods : rows,
+            pageTitle : 'Admin Products',
+            path : '/admin/products'
         });
-    });
+    })
+    .catch(err => console.log(err));
+    
+    // Product.fetchAll(products => {
+    //     res.render('admin/products', {
+    //         prods : products, 
+    //         pageTitle : 'Admin Products', 
+    //         path : '/admin/products', 
+    //     });
+    // });
 };
