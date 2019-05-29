@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 main {
@@ -17,6 +17,14 @@ main {
 
 .centered {
   text-align: center;
+}
+
+.image {
+  height: 20rem;
+}
+
+.image img {
+  height: 100%;
 }
 
 form {
@@ -114,7 +122,7 @@ form {
   display: block;
   background: transparent;
   color: white;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 #side-menu-toggle:focus {
@@ -206,10 +214,6 @@ form {
     display: none;
   }
 }
-
-
-
-
 
 /* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 

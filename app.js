@@ -1,13 +1,13 @@
-const path = require('path');
+const path = require("path");
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 //const expressHbs = require('express-handlebars');
 
-const adminRouter = require('./routes/admin');
-const shopRouter = require('./routes/shop');
-const errorController = require('./controllers/error');
-const sequelize = require('./util/database');
+const adminRouter = require("./routes/admin");
+const shopRouter = require("./routes/shop");
+const errorController = require("./controllers/error");
+const sequelize = require("./util/database");
 //const db = require('./util/database');
 
 const app = express();
@@ -19,8 +19,8 @@ const app = express();
 // }));
 // app.set('view engine', 'hbs');
 //app.set('view engine', 'pug');
-app.set('view engine', 'ejs');
-app.set('views', 'views');
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 // db.execute('SELECT * FROM products')
 //     .then(result => {
@@ -30,18 +30,18 @@ app.set('views', 'views');
 //         console.log(err);
 //     });
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname, 'public'))); //for serving static files
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public"))); //for serving static files
 
-app.use('/admin', adminRouter); 
+app.use("/admin", adminRouter);
 app.use(shopRouter);
 
 app.use(errorController.get404Page);
 
-sequelize.sync()
-    .then(result => {
-        //console.log(result);
-        app.listen(3000);
-    })
-    .catch(err => console.log(err));
-
+sequelize
+  .sync()
+  .then(result => {
+    //console.log(result);
+    app.listen(3000);
+  })
+  .catch(err => console.log(err));
